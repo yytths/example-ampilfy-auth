@@ -7,16 +7,17 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    component: Home,
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    meta: {
+      requiresAuth: true,
+    },
   }
 ]
 
@@ -25,5 +26,21 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+async function routing(to, from, next) {
+  if (to.matched.every(record => !record.meta.requiresAuth)) {
+    return next()
+  }
+
+  try {
+    // 認証が必要なページのハンドリング
+
+    return next()
+  } catch (e) {
+    return next({ path: '/' })
+  }
+}
+
+router.beforeEach(routing)
 
 export default router
