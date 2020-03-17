@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Home from '@/views/Home.vue'
+import { currentAuthenticatedUser } from '@/plugins/amplify'
 
 Vue.use(VueRouter)
 
@@ -34,7 +35,7 @@ async function routing(to, from, next) {
 
   try {
     // 認証が必要なページのハンドリング
-
+    await currentAuthenticatedUser();
     return next()
   } catch (e) {
     return next({ path: '/' })

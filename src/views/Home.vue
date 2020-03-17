@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="margin:1rem 0;">
-      <ul style="margin:auto; width:30%; list-style:none;">
+      <ul style="margin-left: 3rem; width:50%; list-style:none;">
         <li style="text-align:right; margin-bottom: 0.5rem;">
           <span>名前: </span>
           <input type="text" v-model="name"/>
@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import { signIn } from '@/plugins/amplify'
+
 export default {
   name: 'Home',
   data() {
@@ -33,9 +35,10 @@ export default {
     async login() {
       try {
         this.loading = true
-        // await signIn(this.name, this.password)
+        await signIn(this.name, this.password)
         this.$router.push('/about')
       } catch (err) {
+        console.log('login failed')
         console.log(err);
       } finally {
         this.loading = false
