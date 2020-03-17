@@ -1,18 +1,47 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <div style="margin:1rem 0;">
+      <ul style="margin:auto; width:30%; list-style:none;">
+        <li style="text-align:right; margin-bottom: 0.5rem;">
+          <span>名前: </span>
+          <input type="text" v-model="name"/>
+        </li>
+        <li style="text-align:right;">
+          <span>パスワード: </span>
+          <input type="password" v-model="password"/>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <button @click="login" v-if="!loading">ログイン</button>
+      <button disabled v-else style="margin: 1rem;">ログイン</button>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
-  }
-}
+  data() {
+    return {
+      name: '',
+      password: '',
+      loading: false,
+    }
+  },
+  methods: {
+    async login() {
+      try {
+        this.loading = true
+        // await signIn(this.name, this.password)
+        this.$router.push('/about')
+      } catch (err) {
+        console.log(err);
+      } finally {
+        this.loading = false
+      }
+    },
+  },
+};
+
 </script>
