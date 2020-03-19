@@ -1,4 +1,4 @@
-import Amplify, { Auth } from 'aws-amplify'
+import Auth from '@aws-amplify/auth'
 
 const config = {
   Auth: {
@@ -10,7 +10,7 @@ const config = {
   }
 }
 
-Amplify.configure(config)
+Auth.configure(config)
 
 export async function signIn(username, password) {
   return Auth.signIn(username, password);
