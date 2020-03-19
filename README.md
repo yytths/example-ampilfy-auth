@@ -3,7 +3,7 @@
 ## Project setup
 
 1. `cp .env.sample .env`
-1. edited .env
+1. edit .env
 1. `npm install`
 
 ### Compiles and hot-reloads for development
